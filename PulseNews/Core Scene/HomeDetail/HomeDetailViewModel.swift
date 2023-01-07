@@ -33,6 +33,7 @@ extension HomeDetailViewModel: HomeDetailViewModelInterface {
         view?.setUI()
         view?.setLayout()
         view?.setTarget()
+        
     }
     func loadPresentation() {
         let presentation = NewsPresentation(model: news)

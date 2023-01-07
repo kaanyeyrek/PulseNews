@@ -15,13 +15,12 @@ struct NewsPresentation {
     let sourceName: String
     let content: String?
     
-    init(model: NewCasts) {
+init(model: NewCasts) {
         self.title = model.title
         self.newsDescription = model.description
         self.urlToImage = model.image_url
         self.publishDate = model.pubDate
         self.sourceName = model.source_id
         self.content = ""
-       
     }
 }

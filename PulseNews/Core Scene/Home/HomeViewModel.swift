@@ -17,6 +17,8 @@ protocol HomeViewModelInterface {
     func viewWillAppear()
     func didPullToRefresh()
     func didSelectRowAt(at index: Int)
+    func didTapSortButton()
+    func changeCategory(category: NewsCategories)
  
 }
 
@@ -26,7 +28,7 @@ final class HomeViewModel {
     private var currentPage: Int = 1
     private var selectedCategory: NewsCategories = .top
     private var news: [NewCasts] = []
-    private var isLoading: Bool = false
+    private var isLoading = false
     private var moreNews = true
     
     init(view: HomeViewInterface, newService: NewsServiceInterface = NewsService(service: CoreService())) {
@@ -45,6 +47,7 @@ extension HomeViewModel: HomeViewModelInterface {
         view?.setLayout()
         view?.setTableView()
         view?.setRefreshControl()
+        view?.setBarItem()
     }
     func changeLoading() {
         isLoading = !isLoading
@@ -77,9 +80,13 @@ extension HomeViewModel: HomeViewModelInterface {
         self.news.append(contentsOf: news.results)
         self.news = self.news.removeDuplicates()
         let news = self.news.map({
-            NewsPresentation(model: $0)
-        })
+            NewsPresentation(model: $0)})
         self.notify(.didUploadNewsWithPresentation(news: news))
+        if self.news.isEmpty {
+            notify(.empty(message: "Sorry, there is currently no news in the \(selectedCategory.rawValue.capitalized) category, please try again later."))
+        } else {
+            notify(.removeEmpty)
+        }
     }
     var numberOfRowsInSections: Int {
         return news.count
@@ -91,5 +98,15 @@ extension HomeViewModel: HomeViewModelInterface {
     // Helper
     func notify(_ output: HomeViewModelOutput) {
         view?.handleOutputs(output)
+    }
+    func didTapSortButton() {
+        view?.navigate(route: .sort)
+    }
+    func changeCategory(category: NewsCategories) {
+        news.removeAll()
+        currentPage = 1
+        selectedCategory = category
+        moreNews = true
+        fetch()
     }
 }

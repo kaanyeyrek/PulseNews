@@ -18,6 +18,10 @@
 		CE01E1B429672829006FA811 /* HomeDetailContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01E1B329672829006FA811 /* HomeDetailContracts.swift */; };
 		CE01E1B729673439006FA811 /* CustomReusableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01E1B629673439006FA811 /* CustomReusableButton.swift */; };
 		CE01E1BA296750FB006FA811 /* DetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01E1B9296750FB006FA811 /* DetailBuilder.swift */; };
+		CE218A4C2968783C00F01DB0 /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE218A4B2968783C00F01DB0 /* SortViewController.swift */; };
+		CE218A4E2968959C00F01DB0 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE218A4D2968959C00F01DB0 /* CategoriesCollectionViewCell.swift */; };
+		CE2BF1DB2969AF1D003C8E3A /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2BF1DA2969AF1D003C8E3A /* CategoriesModel.swift */; };
+		CE2BF1DE296A06BF003C8E3A /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2BF1DD296A06BE003C8E3A /* EmptyView.swift */; };
 		CEA2EB712965A9DD00A33343 /* NewsPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2EB702965A9DD00A33343 /* NewsPresentation.swift */; };
 		CEA2EB742965CF8200A33343 /* HomeContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2EB732965CF8200A33343 /* HomeContracts.swift */; };
 		CECC961E29647CD700B4334E /* NewsCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECC961D29647CD700B4334E /* NewsCategories.swift */; };
@@ -73,6 +77,10 @@
 		CE01E1B329672829006FA811 /* HomeDetailContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailContracts.swift; sourceTree = "<group>"; };
 		CE01E1B629673439006FA811 /* CustomReusableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomReusableButton.swift; sourceTree = "<group>"; };
 		CE01E1B9296750FB006FA811 /* DetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBuilder.swift; sourceTree = "<group>"; };
+		CE218A4B2968783C00F01DB0 /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
+		CE218A4D2968959C00F01DB0 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE2BF1DA2969AF1D003C8E3A /* CategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModel.swift; sourceTree = "<group>"; };
+		CE2BF1DD296A06BE003C8E3A /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		CEA2EB702965A9DD00A33343 /* NewsPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPresentation.swift; sourceTree = "<group>"; };
 		CEA2EB732965CF8200A33343 /* HomeContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContracts.swift; sourceTree = "<group>"; };
 		CECC961D29647CD700B4334E /* NewsCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCategories.swift; sourceTree = "<group>"; };
@@ -171,8 +179,25 @@
 			isa = PBXGroup;
 			children = (
 				CE01E19F2966D7E3006FA811 /* NewsTableViewCell.swift */,
+				CE218A4D2968959C00F01DB0 /* CategoriesCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		CE218A4A2968781C00F01DB0 /* Sort */ = {
+			isa = PBXGroup;
+			children = (
+				CE218A4B2968783C00F01DB0 /* SortViewController.swift */,
+			);
+			path = Sort;
+			sourceTree = "<group>";
+		};
+		CE2BF1DC296A06AF003C8E3A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE2BF1DD296A06BE003C8E3A /* EmptyView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		CEED992A29608D6400FC5358 = {
@@ -263,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				CEF7052B29630E9200AD011A /* News.swift */,
+				CE2BF1DA2969AF1D003C8E3A /* CategoriesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -280,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				CE01E1B82967365E006FA811 /* Cell */,
+				CE2BF1DC296A06AF003C8E3A /* View */,
 				CE01E1B529672F49006FA811 /* Button */,
 				CE01E1A72966E217006FA811 /* Label */,
 				CE01E1A42966DFE2006FA811 /* ImageViews */,
@@ -302,6 +329,7 @@
 				CECC96232964996D00B4334E /* HomeViewModel.swift */,
 				CEA2EB732965CF8200A33343 /* HomeContracts.swift */,
 				CEA2EB702965A9DD00A33343 /* NewsPresentation.swift */,
+				CE218A4A2968781C00F01DB0 /* Sort */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -506,18 +534,22 @@
 				CEED996829609F1100FC5358 /* TabBarViewController.swift in Sources */,
 				CEED993B29608D6400FC5358 /* HomeViewController.swift in Sources */,
 				CEF7053A296340C100AD011A /* NetworkHelper.swift in Sources */,
+				CE2BF1DB2969AF1D003C8E3A /* CategoriesModel.swift in Sources */,
 				CEED993729608D6400FC5358 /* AppDelegate.swift in Sources */,
 				CE01E1A02966D7E3006FA811 /* NewsTableViewCell.swift in Sources */,
 				CE01E1AB2966EFAA006FA811 /* NewsBodyCustomLabel.swift in Sources */,
+				CE218A4C2968783C00F01DB0 /* SortViewController.swift in Sources */,
 				CE01E1B029672784006FA811 /* HomeDetailViewController.swift in Sources */,
 				CEA2EB712965A9DD00A33343 /* NewsPresentation.swift in Sources */,
 				CECC962029647D0C00B4334E /* NewsEndpoint.swift in Sources */,
 				CEF7053C2963414D00AD011A /* CoreService.swift in Sources */,
 				CECC96262964C1C200B4334E /* Extension.swift in Sources */,
+				CE218A4E2968959C00F01DB0 /* CategoriesCollectionViewCell.swift in Sources */,
 				CEF70532296317D500AD011A /* HTTPMethod.swift in Sources */,
 				CEF705362963198400AD011A /* Paths.swift in Sources */,
 				CECC9622296489D700B4334E /* NewsService.swift in Sources */,
 				CE01E1B22967281D006FA811 /* HomeDetailViewModel.swift in Sources */,
+				CE2BF1DE296A06BF003C8E3A /* EmptyView.swift in Sources */,
 				CE01E1A92966ECE8006FA811 /* NewsHeaderCustomLabel.swift in Sources */,
 				CEF7052C29630E9200AD011A /* News.swift in Sources */,
 				CECC961E29647CD700B4334E /* NewsCategories.swift in Sources */,

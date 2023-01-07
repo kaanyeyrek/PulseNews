@@ -7,6 +7,8 @@
 
 import UIKit
 
+private var emptyView: EmptyView?
+
 // Duplicate Array Ex
 extension Array where Element:Equatable {
     func removeDuplicates() -> [Element] {
@@ -93,4 +95,19 @@ extension UIViewController {
     alertController.addAction(action)
     self.present(alertController, animated: true, completion: nil)
   }
+// Empty View
+    func showEmptyStateView(with message: String, at view: UIView) {
+        DispatchQueue.main.async {
+            emptyView?.removeFromSuperview()
+            emptyView = EmptyView(message: message)
+            guard let emptyView = emptyView else { return }
+            emptyView.frame = view.safeAreaLayoutGuide.layoutFrame
+            view.addSubview(emptyView)
+        }
+    }
+    func removeEmptyStateView() {
+        DispatchQueue.main.async {
+            emptyView?.removeFromSuperview()
+        }
+    }
 }

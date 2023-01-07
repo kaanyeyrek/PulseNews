@@ -23,6 +23,7 @@ class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     override func prepareForReuse() {
+        super.prepareForReuse()
         image.image = UIImage(systemName: "photo")
         headLabel.text = ""
         sourceLabel.text = ""

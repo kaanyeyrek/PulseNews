@@ -17,6 +17,7 @@ protocol HomeViewInterface: AnyObject {
     func reloadData()
     func setNavigationTitle()
     func setRefreshControl()
+    func setBarItem()
 }
 
 final class HomeViewController: UIViewController {
@@ -40,6 +41,9 @@ final class HomeViewController: UIViewController {
         viewModel.didPullToRefresh()
         DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: self.table.refreshControl!.endRefreshing)
     }
+    @objc private func didTapSortButton() {
+        viewModel.didTapSortButton()
+    }
 }
 //MARK: - HomeViewInterface Delegate
 extension HomeViewController: HomeViewInterface {
@@ -48,6 +52,12 @@ extension HomeViewController: HomeViewInterface {
         case .detail(let viewModel):
             let vc = DetailBuilder.make(viewModel: viewModel)
             navigationController?.pushViewController(vc, animated: true)
+        case .sort:
+            let vc = SortViewController()
+            vc.delegate = self
+            vc.modalPresentationStyle = .fullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            present(vc, animated: true)
         }
     }
     func handleOutputs(_ output: HomeViewModelOutput) {
@@ -57,6 +67,12 @@ extension HomeViewController: HomeViewInterface {
                 reloadData()
         case .failedUpdateData(let message, let title):
             print(message, title)
+        case .empty(let message):
+            DispatchQueue.main.async {
+                self.showEmptyStateView(with: message, at: self.view)
+            }
+        case .removeEmpty:
+            self.removeEmptyStateView()
         }
     }
     func setSubviews() {
@@ -88,6 +104,9 @@ extension HomeViewController: HomeViewInterface {
         refresh.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         self.table.refreshControl = refresh
     }
+    func setBarItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "circle.grid.2x2"), style: .done, target: self, action: #selector(didTapSortButton))
+    }
 }
 //MARK: - UITableViewDataSource Methods
 extension HomeViewController: UITableViewDataSource {
@@ -111,4 +130,12 @@ extension HomeViewController: UITableViewDelegate {
         return 120
     }
 }
-
+//MARK: - SortView Delegate
+extension HomeViewController: SortViewInterface {
+    func didTapCategory(category: NewsCategories) {
+        if !news.isEmpty {
+            table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
+        viewModel.changeCategory(category: category)
+    }
+}
