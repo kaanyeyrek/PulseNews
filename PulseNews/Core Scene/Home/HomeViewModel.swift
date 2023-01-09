@@ -48,6 +48,7 @@ extension HomeViewModel: HomeViewModelInterface {
         view?.setTableView()
         view?.setRefreshControl()
         view?.setBarItem()
+        fetch()
     }
     func changeLoading() {
         isLoading = !isLoading

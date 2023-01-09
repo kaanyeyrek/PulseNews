@@ -33,7 +33,6 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
-        viewModel.fetch()
     }
 //MARK: - @objc action
     @objc private func didPullToRefresh() {
@@ -86,7 +85,7 @@ extension HomeViewController: HomeViewInterface {
     }
     func setLayout() {
         table.frame = view.bounds
-        indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        indicator.centerInSuperView(size: .init(width: 200, height: 200))
         indicator.startAnimating()
     }
     func changeLoading(isLoad: Bool) {

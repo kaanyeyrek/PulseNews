@@ -27,6 +27,6 @@ class EmptyView: UIView {
         headerLabel.numberOfLines = 0
         headerLabel.textColor = .secondaryLabel
         headerLabel.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size: .init(width: 100, height: 200))
-        headerLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -50).isActive = true
+        headerLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -80).isActive = true
     }
 }

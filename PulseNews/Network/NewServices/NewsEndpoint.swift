@@ -10,7 +10,7 @@ import Foundation
 enum NewsEndPoint: HTTPEndPoint {
     
     case fetchNews(category: NewsCategories, page: Int)
-    case searchNews(query: String, page: Int)
+    case searchNews(q: String, page: Int)
     
     var path: String {
         return Paths.latest
@@ -23,11 +23,11 @@ enum NewsEndPoint: HTTPEndPoint {
                     URLQueryItem(name: "category", value: category.rawValue),
                     URLQueryItem(name: "page", value: String(page))
             ]
-        case .searchNews(let query, let page):
+        case .searchNews(let q, let page):
             return [URLQueryItem(name: "apiKey", value: NetworkHelper.apiKey),
                     URLQueryItem(name: "language", value: Locale.current.language.languageCode?.identifier),
                     URLQueryItem(name: "page", value: String(page)),
-                    URLQueryItem(name: "query", value: query)
+                    URLQueryItem(name: "q", value: q)
             ]
         }
     }
