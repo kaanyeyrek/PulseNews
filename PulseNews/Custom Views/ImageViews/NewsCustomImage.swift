@@ -24,6 +24,7 @@ class NewsCustomImage: UIImageView {
         contentMode = .scaleAspectFill
         tintColor = .secondarySystemFill
         layer.cornerRadius = 20
+        layer.masksToBounds = true
         clipsToBounds = true
         image = UIImage(systemName: "photo")
     }

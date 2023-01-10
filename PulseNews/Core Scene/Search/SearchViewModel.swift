@@ -14,6 +14,8 @@ protocol SearchViewModelInterface {
     func updateData(with news: News)
     func changeLoading()
     func newSearch()
+    func didPullRefresh()
+    func didSelectRowAt(at index: Int)
 }
 
 final class SearchViewModel {
@@ -36,6 +38,7 @@ extension SearchViewModel: SearchViewModelInterface {
     func viewDidLoad() {
         view?.setUI()
         view?.configureTableView()
+        view?.setRefresh()
         view?.addSubviews()
         view?.setLayout()
         view?.setNavBar()
@@ -82,5 +85,14 @@ extension SearchViewModel: SearchViewModelInterface {
     func newSearch() {
         news.removeAll()
         currentPage = 1
+    }
+    func didPullRefresh() {
+        news.removeAll()
+        currentPage += 1
+        searchData(with: query)
+    }
+    func didSelectRowAt(at index: Int) {
+        let viewModel = HomeDetailViewModel(news: news[index])
+        view?.navigate(route: .detail(viewModel: viewModel))
     }
 }

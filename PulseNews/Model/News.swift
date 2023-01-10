@@ -17,7 +17,6 @@ struct NewCasts: Decodable, Equatable {
     let title: String
     let link: String
     let description: String?
-    let pubDate: String
     let image_url: String?
     let source_id: String
 }

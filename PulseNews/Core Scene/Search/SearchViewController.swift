@@ -16,6 +16,8 @@ protocol SearchViewInterface: AnyObject {
     func tableReload()
     func setIndicator(isLoad: Bool)
     func setNavBar()
+    func setRefresh()
+    func navigate(route: SearchViewModelRoute)
 }
 
 final class SearchViewController: UIViewController {
@@ -33,6 +35,12 @@ final class SearchViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         self.showEmptyStateView(with: "Please enter some text to search for news!", at: self.view)
+    }
+//MARK: - @objc actions
+    @objc private func didTapRefresh() {
+        self.table.refreshControl?.beginRefreshing()
+        viewModel.didPullRefresh()
+        DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: self.table.refreshControl!.endRefreshing)
     }
 }
 //MARK: - SearchView Interface
@@ -67,6 +75,12 @@ extension SearchViewController: SearchViewInterface {
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
     }
+    func setRefresh() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(didTapRefresh), for: .valueChanged)
+        table.refreshControl = refresh
+        
+    }
     func handleOutputs(_ output: SearchViewModelOutput) {
         switch output {
         case .didFailWithError(let title, let message):
@@ -80,6 +94,13 @@ extension SearchViewController: SearchViewInterface {
             }
         case .removeEmptyView:
             self.removeEmptyStateView()
+        }
+    }
+    func navigate(route: SearchViewModelRoute) {
+        switch route {
+        case .detail(let viewModel):
+            let vc = DetailBuilder.make(viewModel: viewModel)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -98,6 +119,7 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
+        viewModel.didSelectRowAt(at: indexPath.row)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return .init(120)

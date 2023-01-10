@@ -11,19 +11,22 @@ protocol HomeViewInterface: AnyObject {
     func setTableView()
     func setSubviews()
     func setLayout()
-    func handleOutputs(_ output: HomeViewModelOutput)
-    func navigate(route: HomeViewModelRoute)
     func changeLoading(isLoad: Bool)
     func reloadData()
     func setNavigationTitle()
     func setRefreshControl()
     func setBarItem()
+    func handleOutputs(_ output: HomeViewModelOutput)
+    func navigate(route: HomeViewModelRoute)
 }
 
 final class HomeViewController: UIViewController {
+//MARK: - Injections
     private lazy var viewModel: HomeViewModelInterface = HomeViewModel(view: self)
+//MARK: - UI Elements
     private var table = UITableView()
     private var indicator: UIActivityIndicatorView = UIActivityIndicatorView()
+//MARK: - UI Components
     private var news = [NewsPresentation]()
 //MARK: - LifeCycle
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +37,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         viewModel.viewDidLoad()
     }
-//MARK: - @objc action
+//MARK: - @objc actions
     @objc private func didPullToRefresh() {
         self.table.refreshControl?.beginRefreshing()
         viewModel.didPullToRefresh()

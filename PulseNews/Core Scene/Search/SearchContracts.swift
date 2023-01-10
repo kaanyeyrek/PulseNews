@@ -13,3 +13,6 @@ enum SearchViewModelOutput {
     case showEmptyView(message: String)
     case removeEmptyView
 }
+enum SearchViewModelRoute {
+    case detail(viewModel: HomeDetailViewModelInterface)
+}

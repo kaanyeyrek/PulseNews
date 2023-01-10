@@ -16,6 +16,7 @@ protocol HomeDetailViewInterface: AnyObject {
     func setLayout()
     func setTarget()
     func setHandleOutput(_ output: HomeDetailOutput)
+    func saveButtonConfigure()
 }
 
 final class HomeDetailViewController: UIViewController {
@@ -35,6 +36,7 @@ final class HomeDetailViewController: UIViewController {
     private var titleLabel = NewsHeaderCustomLabel(alignment: .left, fontSize: 20)
     private var descriptionLabel = NewsBodyCustomLabel(alignment: .left)
     private var sourceLabel = NewsSourceCustomLabel(alignment: .right)
+    private let button = UIButton(type: .system)
 //MARK: - LifeCycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,19 +52,23 @@ final class HomeDetailViewController: UIViewController {
     @objc private func didTapMoreButton() {
         viewModel.setSafariWebPage()
     }
+    @objc private func didTapSaveButton() {
+        viewModel.saveTapped(isSelected: button.isSelected)
+        button.isSelected.toggle()
+    }
 }
 //MARK: - HomeDetailView Interface
 extension HomeDetailViewController: HomeDetailViewInterface {
     func setHandleOutput(_ output: HomeDetailOutput) {
         switch output {
         case .load(let presentation):
+            titleLabel.text = presentation.title
+            descriptionLabel.text = presentation.newsDescription
+            sourceLabel.text = presentation.sourceName
             if let imageURL = presentation.urlToImage {
                 detailImage.sd_imageIndicator = SDWebImageActivityIndicator.medium
                 detailImage.sd_imageTransition = .fade
                 detailImage.sd_setImage(with: URL(string: imageURL), placeholderImage: UIImage(systemName: "photo"))
-                titleLabel.text = presentation.title
-                descriptionLabel.text = presentation.newsDescription
-                sourceLabel.text = presentation.sourceName
             }
         case .showMorePage(let url):
             guard let url = URL(string: url) else { return }
@@ -73,6 +79,8 @@ extension HomeDetailViewController: HomeDetailViewInterface {
             let vc = SFSafariViewController(url: url, configuration: configuration)
             vc.preferredControlTintColor = .label
             present(vc, animated: true)
+        case .isSaved(let saved):
+            button.isSelected = saved
         }
     }
     func setNavigationTitle() {
@@ -89,13 +97,20 @@ extension HomeDetailViewController: HomeDetailViewInterface {
         view.addSubview(descriptionLabel)
         view.addSubview(sourceLabel)
         view.addSubview(customButton)
+        view.addSubview(button)
+    }
+    func saveButtonConfigure() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.setImage(UIImage(systemName: "bookmark.fill"), for: .selected)
+        button.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
     }
     func setTarget() {
         customButton.addTarget(self, action: #selector(didTapMoreButton), for: .touchUpInside)
     }
     func setLayout() {
-        detailImage.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 5, right: 0), size: .init(width: view.frame.width, height: 250))
-        detailImage.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 230).isActive = true
+        detailImage.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 5, right: 0), size: .init(width: view.frame.width, height: 275))
+        detailImage.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 240).isActive = true
         
         titleLabel.anchor(top: detailImage.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 5, left: 10, bottom: 5, right: 10), size: .init(width: view.frame.width, height: 50))
         titleLabel.centerYAnchor.constraint(equalTo: detailImage.bottomAnchor, constant: 40).isActive = true

@@ -10,4 +10,5 @@ import Foundation
 enum HomeDetailOutput {
     case load(NewsPresentation)
     case showMorePage(url: String)
+    case isSaved(Bool)
 }
