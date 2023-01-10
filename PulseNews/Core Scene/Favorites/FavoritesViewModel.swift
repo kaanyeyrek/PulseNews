@@ -60,8 +60,8 @@ extension FavoritesViewModel: FavoritesViewModelInterface {
         fetchFavorites()
     }
     func didSelectRowAt(index: Int) {
-//        let model = newsData[index]
-//        let viewModel = HomeDetailViewModel(news: model)
-//        view?.navigate(route: .detail(viewModel: viewModel))
+        let model = newsData[index]
+        let viewModel = HomeDetailViewModel(news: NewCasts(title: model.title ?? "", link: model.link ?? "", description: model.descriptions, image_url: model.imageURL, source_id: model.source ?? ""))
+        view?.navigate(route: .detail(viewModel: viewModel))
     }
 }
