@@ -8,6 +8,8 @@ Core Data
 
 UIKit - Programmaticaly
 
+Unit Test
+
 Pagination
 
 JSON / API
