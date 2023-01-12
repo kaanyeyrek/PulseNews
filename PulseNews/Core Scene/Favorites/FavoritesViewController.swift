@@ -98,7 +98,6 @@ extension FavoritesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         favoritesData.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCell(withReuseIdentifier: FavoritesReusableCell.identifier, for: indexPath) as! FavoritesReusableCell
         let model = favoritesData[indexPath.item]

@@ -8,7 +8,6 @@
 import Foundation
 
 protocol HomeViewModelInterface {
-    var view: HomeViewInterface? { get set }
     func viewDidLoad()
     func fetch()
     func notify(_ output: HomeViewModelOutput)
@@ -19,11 +18,10 @@ protocol HomeViewModelInterface {
     func didSelectRowAt(at index: Int)
     func didTapSortButton()
     func changeCategory(category: NewsCategories)
- 
 }
 
 final class HomeViewModel {
-    weak var view: HomeViewInterface?
+    private weak var view: HomeViewInterface?
     private var newService: NewsServiceInterface
     private var currentPage: Int = 1
     private var selectedCategory: NewsCategories = .top
@@ -55,9 +53,11 @@ extension HomeViewModel: HomeViewModelInterface {
         view?.changeLoading(isLoad: isLoading)
     }
     func didPullToRefresh() {
+        view?.beginRefreshing()
         news.removeAll()
         currentPage += 1
         fetch()
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: view!.endRefreshing)
     }
     func fetch() {
         changeLoading()

@@ -16,6 +16,8 @@ protocol HomeViewInterface: AnyObject {
     func setNavigationTitle()
     func setRefreshControl()
     func setBarItem()
+    func beginRefreshing()
+    func endRefreshing()
     func handleOutputs(_ output: HomeViewModelOutput)
     func navigate(route: HomeViewModelRoute)
 }
@@ -39,9 +41,7 @@ final class HomeViewController: UIViewController {
     }
 //MARK: - @objc actions
     @objc private func didPullToRefresh() {
-        self.table.refreshControl?.beginRefreshing()
         viewModel.didPullToRefresh()
-        DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: self.table.refreshControl!.endRefreshing)
     }
     @objc private func didTapSortButton() {
         viewModel.didTapSortButton()
@@ -76,6 +76,12 @@ extension HomeViewController: HomeViewInterface {
         case .removeEmpty:
             self.removeEmptyStateView()
         }
+    }
+    func beginRefreshing() {
+        table.refreshControl?.beginRefreshing()
+    }
+    func endRefreshing() {
+        table.refreshControl?.endRefreshing()
     }
     func setSubviews() {
         view.addSubview(table)

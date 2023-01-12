@@ -44,12 +44,12 @@ extension FavoritesViewModel: FavoritesViewModelInterface {
             notify(.isDeleteAll(isEnabled: false))
             notify(.didUploadWithFavorites(with: []))
             notify(.emptyView(message: "You have no saved favorites"))
+            return
         }
         notify(.isDeleteAll(isEnabled: true))
         notify(.didUploadWithFavorites(with: newsData.map {
-            NewsPresentation(model: $0)
-        }))
-        notify(.removeEmptyView)
+            NewsPresentation(model: $0) }))
+            notify(.removeEmptyView)
     }
     func didTapTrashButton() {
         ProgressHUD.showSucceed("Saved news are deleted successfully!", delay: 1.5)
