@@ -24,6 +24,8 @@ ProgressHUD
 
 MVVM Design Pattern
 
+Dependency Injection
+
 SOLID Principles
 
 Protocol - Oriented Programming
