@@ -11,6 +11,17 @@ final class MockHomeViewController: HomeViewInterface {
     var invokedPrepareTableView = false
     var invokedPrepareTableViewCount = 0
     var outputs: [HomeViewModelOutput] = []
+    
+    var detailRouteCalled: Bool = false
+    var detailRouteCalledCount: Int = 0
+    
+    var invokeChangeLoading = false
+    var invokeChangeLoadingCount = 0
+    var changeLoadingParameters: (isLoad: Bool, Void)?
+    var changeLoadingParametersList = [(isLoad: Bool, Void)]()
+    
+    var detailParameters: (viewmodel: HomeDetailViewModelInterface, Void)?
+    var detailParametersList = [(viewmodel: HomeDetailViewModelInterface, Void)]()
 
     func setTableView() {
         invokedPrepareTableView = true
@@ -45,7 +56,10 @@ final class MockHomeViewController: HomeViewInterface {
         
     }
     func changeLoading(isLoad: Bool) {
-        
+        invokeChangeLoading = true
+        invokeChangeLoadingCount += 1
+        changeLoadingParameters = (isLoad: isLoad, ())
+        changeLoadingParametersList.append((isLoad: isLoad, ()))
     }
     func setNavigationTitle() {
         
@@ -60,6 +74,14 @@ final class MockHomeViewController: HomeViewInterface {
         outputs.append(output)
     }
     func navigate(route: HomeViewModelRoute) {
-        
+        switch route {
+        case .detail(let viewModel):
+            detailRouteCalled = true
+            detailRouteCalledCount += 1
+            detailParameters = (viewmodel: viewModel, ())
+            detailParametersList.append((viewmodel: viewModel, ()))
+        case .sort:
+            break
+        }
     }
 }

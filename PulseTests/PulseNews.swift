@@ -19,26 +19,25 @@ final class PulseNews: XCTestCase {
         service = .init()
         viewModel = .init(view: view, newService: service)
     }
+    override func tearDown() {
+        view = nil
+        service = nil
+        viewModel = nil
+    }
     func test_viewDidLoad_InvokesRequiredMethod() {
-        //given
         XCTAssertFalse(view.invokedPrepareTableView)
-        XCTAssertFalse(view.invokedBeginRefreshing)
-        XCTAssertFalse(view.invokedEndRefreshing)
-        XCTAssertFalse(view.invokedReloadData)
+        XCTAssertTrue(view.changeLoadingParametersList.isEmpty)
+        XCTAssertFalse(view.invokeChangeLoading)
         XCTAssertFalse(service.isFetchNewsCalled)
-        XCTAssertFalse(service.isSearchNewsCalled)
-        //when
         viewModel.viewDidLoad()
-        //then
         XCTAssertEqual(view.invokedPrepareTableViewCount, 1)
         XCTAssertEqual(service.isFetchNewsCount, 1)
+        XCTAssertEqual(view.invokeChangeLoadingCount, 1)
+        XCTAssertEqual(view.changeLoadingParametersList.map(\.isLoad), [true])
     }
-    func testExample() {
-        //given
-        
-        //when
-        
-        //then
-        
+    func test_didSelectItem_WithFirstIndex() {
+        XCTAssertFalse(view.detailRouteCalled)
+        view.outputs.removeAll()
+        viewModel.didSelectRowAt(at: 0)
     }
 }
