@@ -8,6 +8,8 @@ Core Data
 
 UIKit - Programmaticaly
 
+Unit Test
+
 Pagination
 
 JSON / API
@@ -21,6 +23,8 @@ ProgressHUD
 ⚡️ Architecture ->
 
 MVVM Design Pattern
+
+Dependency Injection
 
 SOLID Principles
 
