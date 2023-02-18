@@ -80,6 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE01D67329A10C08000D2BA8 /* NewsData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CE01D67429A10C08000D2BA8 /* NewsData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CE01E19F2966D7E3006FA811 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		CE01E1A52966E007006FA811 /* NewsCustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCustomImage.swift; sourceTree = "<group>"; };
 		CE01E1A82966ECE8006FA811 /* NewsHeaderCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderCustomLabel.swift; sourceTree = "<group>"; };
@@ -248,6 +250,8 @@
 		CEED992A29608D6400FC5358 = {
 			isa = PBXGroup;
 			children = (
+				CE01D67329A10C08000D2BA8 /* NewsData+CoreDataClass.swift */,
+				CE01D67429A10C08000D2BA8 /* NewsData+CoreDataProperties.swift */,
 				CEED993529608D6400FC5358 /* PulseNews */,
 				CEED994429608D6500FC5358 /* Info.plist */,
 				CEED994C29608D6500FC5358 /* PulseNewsTests */,

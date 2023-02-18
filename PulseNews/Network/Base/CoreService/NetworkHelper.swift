@@ -8,5 +8,6 @@
 import Foundation
 
 enum NetworkHelper {
-    static let apiKey = "pub_15153ea898f1e8f94b7e51fd517afe0c7aaab"
+    static let apiKey = "pub_12891bbaa86f6767ce902a41954a6cdbd598d"
+    
 }
